@@ -1,0 +1,43 @@
+<div class = "container">
+<div class = "flip">
+  <div class = "container text-center top-content">
+  <h1>All Posts</h1>
+  <h2>Please, create a new post</h2>
+  <form action = '/posts/new' method = 'get'>
+   <button type="submit" class="btn btn-primary">Create new post</button>
+  </form>
+  </div>
+</div>
+
+<div class = "container page-container">
+ <div class = "row">
+<%if @posts.empty?%>
+  <h2>Empty</h2>
+<%else%>
+   <% @posts.each do |post|%>
+   <div class="col-sm-6">
+     <div class="card">
+       <div class="card-body">
+        <h2 class='post-title'>
+          <%= post.title%>
+        </h2>
+        <div class = "poster">
+            Posted by <%=get_author(post)%>
+          </div>
+        <p class='post-content'>
+          <%= truncate("#{post.content}", length: 200) %>
+          <%= link_to 'Show', post_path(post)%>
+        </p>
+        <%= image_tag post.image, class: 'img-responsive' %>
+        <p class='post-button'>
+          <%= link_to 'Edit', edit_post_path(post)%>
+          <%= link_to "Delete", post_path(post), method: :delete, data: { confirm: 'Are you sure?'} %>
+        </p>
+       </div>
+      </div>
+    </div>
+<%end%>
+<%end%>
+
+</div>
+</div>

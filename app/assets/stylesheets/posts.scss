@@ -1,0 +1,44 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+@import "bootstrap";
+.flip {
+
+    background-image: url(https://static.pexels.com/photos/373912/pexels-photo-373912.jpeg);
+    background-size: cover;
+    height: 280px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    background-position: 0;
+    width:100%; 
+    float:left;
+}
+
+.post-title {
+    display: block;
+
+}
+
+.page-container {
+    margin-top: 280px;
+}
+
+.img-responsive {
+    width: 240px;
+}
+.card {
+    margin-top: 10px;
+}
+.flip h1{
+    color:white;
+}
+.flip h2{
+    color:white;
+}
+.top-content{
+    margin-top: 70px;
+}
+.poster {
+    color: rgb(156, 156, 156);
+}

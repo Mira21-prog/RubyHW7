@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: 
+  last_name: 
+  gender: 
+  birthday: 2020-12-14 14:21:55
+
+two:
+  first_name: 
+  last_name: 
+  gender: 
+  birthday: 2020-12-14 14:21:55
