@@ -1,3 +1,26 @@
+# default: &default
+#   adapter: postgresql
+#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#   timeout: 5000
+#   user: postgres
+
+
+# development:
+#   <<: *default
+#   database: myapp_development
+#   host: localhost
+
+# test:
+#   <<: *default
+#   database: myapp_test
+
+# production:
+#   adapter: postgresql
+#   pool: 5
+#   timeout: 5000
+#   database: myapp_production
+#   username: myapp
+#   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] || 'password' %>
 # SQLite. Versions 3.8.0 and up are supported.
 #   gem install sqlite3
 #
@@ -22,8 +45,6 @@ test:
 
 production:
   adapter: postgresql
+  database: db/production.sqlite3
   pool: 5
   timeout: 5000
-  database: myapp_production
-  username: myapp
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] || 'password' %>
