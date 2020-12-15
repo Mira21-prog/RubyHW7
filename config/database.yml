@@ -22,6 +22,8 @@ test:
 
 production:
   adapter: postgresql
-  database: db/production.sqlite3
   pool: 5
   timeout: 5000
+  database: myapp_production
+  username: myapp
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] || 'password' %>
