@@ -20,7 +20,7 @@
 
      <div class="form-group">
       <%= form.label :select_author%>
-      <%= select_tag 'post[author_id]', options_for_select(@author.collect{ |u| ["#{u.first_name} " + "#{u.last_name}", u.id] }), class: 'form-control'%>
+      <%= select_tag 'author_id', options_for_select(@authors.collect{ |u| [u.full_name, u.id] }), class: 'form-control'%>
      </div>
 
       <%= form.submit "Save changes", class: "btn btn-primary" %>
