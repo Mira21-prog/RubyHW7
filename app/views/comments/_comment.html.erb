@@ -1,0 +1,30 @@
+  <% if @post.comments.exists?%>
+  <h3>Your comments:</h3>
+    <% @post.comments.each do |comment| %>
+      <% next unless comment.persisted? %>
+       <div class="card">
+        <div class="card-body">
+        <div class = "row">
+          <div class = "col-sm-1">
+            <%= image_tag 'user.png', class: 'image-user' %>
+          </div>
+          <div class = "col-sm-9">
+            <div class = "font-weight-bold">
+              <%= comment.commenter %>
+            </div>
+            <br>
+            <div>
+              <%= comment.body%>
+            </div>
+          </div>
+              <%= link_to "Delete", post_comment_path(post_id: comment.post_id, id: comment.id),
+                          method: :delete,
+                          data: { confirm: 'Are you sure?' } %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  <%else%>
+  <%end%>
+  </div>
+</div>

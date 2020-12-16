@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :author
+  has_many :comments
   validates :image, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]) }
   validates :title, presence: true
   validates :content, presence: true
