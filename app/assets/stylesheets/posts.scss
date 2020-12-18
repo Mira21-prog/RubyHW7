@@ -14,21 +14,41 @@
     width:100%; 
     float:left;
 }
+.empty-post{
+    margin-top: 20px;
+}
+
+footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding-top: 10px;
+}
 
 .post-title {
     display: block;
+}
+.content-post{
 
 }
-
 .page-container {
-    margin-top: 280px;
+    margin-top: 280px; 
+}
+.container {
+    margin-bottom: 100px;
 }
 
 .img-responsive {
     width: 240px;
+    height: 130px;
 }
 .card {
     margin-top: 10px;
+}
+.card-body {
+    height: 450px;
 }
 .flip h1{
     color:white;

@@ -12,14 +12,17 @@
 <div class = "container page-container">
  <div class = "row">
 <%if @posts.empty?%>
-  <h2>No posts yet</h2>
+    <br>
+    <div class = "empty-post">
+    <h2>No posts yet</h2>
+    </div>
 <%else%>
    <% @posts.each do |post|%>
    <div class="col-sm-6">
      <div class="card">
        <div class="card-body">
         <h2 class='post-title'>
-          <%= post.title%>
+          <%= truncate("#{post.title}", length: 65) %>
         </h2>
         <div class = "poster">
             Posted by <%=get_author(post)%>
@@ -41,3 +44,4 @@
 
 </div>
 </div>
+ <%= render 'posts/footer'%>
