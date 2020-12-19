@@ -1,6 +1,21 @@
   <% if @post.comments.exists?%>
-  <h3>Your comments:</h3>
-    <% @post.comments.each do |comment| %>
+  <div class = "row">
+
+   <div class = "col-sm-7">
+    <h3>Your comments:</h3>
+   </div>
+
+   <div class = "col-sm-1">
+     <h5>Selector</h5>
+   </div>
+
+   <div class = "col-sm-4">
+      <%= select_tag 'comment[select_status]', options_for_select(Comment.statuses.keys), class: 'form-control'%>
+   </div>
+
+
+  </div>
+    <% @comments.each do |comment| %>
       <% next unless comment.persisted? %>
        <div class="card">
         <div class="card-body">
@@ -10,7 +25,14 @@
           </div>
           <div class = "col-sm-9">
             <div class = "font-weight-bold">
-              <%= comment.commenter %>
+              <%= comment.commenter %> <br>
+              Status: <%= comment.status %><br>
+              <% if comment.status.include?("unpublished") %>
+              <%= link_to "Published", post_comment_path(post_id: comment.post_id, id: comment.id),
+                          method: :patch,
+                          data: { confirm: 'Are you sure?' } %>
+              <% else %>
+              <% end %>
             </div>
             <br>
             <div>
