@@ -1,12 +1,21 @@
 class PostsController < ApplicationController
+  include ActionView::Helpers::DateHelper
   before_action :find_authors, only: %i[edit new create update]
   before_action :find_id_post, only: %i[show edit update destroy]
+
 
   def index
     @posts = Post.all
   end
 
   def show
+    if params["status"].nil?
+      @comments = @post.comments.published
+    elsif params["status"] == "published"
+      @comments = @post.comments.published
+    else
+      @comments = @post.comments.unpublished
+    end
   end
 
   def edit

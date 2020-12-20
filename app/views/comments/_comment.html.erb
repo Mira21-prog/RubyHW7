@@ -9,12 +9,18 @@
      <h5>Selector</h5>
    </div>
 
-   <div class = "col-sm-4">
-      <%= select_tag 'comment[select_status]', options_for_select(Comment.statuses.keys), class: 'form-control'%>
+   <div class = "col-sm-3 ">
+    <div class = "form-inline">
+     <%= form_tag(post_path(@post), method: :get) do |form| %>
+      <%= select_tag :status, options_for_select(["published", "unpublished"],'published'), class: 'form-control selector'%>
+      <%= submit_tag 'OK', class: 'btn btn-primary' %>
+     <% end %>
+    </div>
    </div>
 
 
   </div>
+
     <% @comments.each do |comment| %>
       <% next unless comment.persisted? %>
        <div class="card">
