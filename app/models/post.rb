@@ -6,4 +6,5 @@ class Post < ApplicationRecord
   validates :content, presence: true
   validates :title, length: { maximum: 200 }
   validates :content, length: { maximum: 700 }
+  is_impressionable
 end

@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  impressionist actions: [:show]
   include ActionView::Helpers::DateHelper
   before_action :find_authors, only: %i[edit new create update]
   before_action :find_id_post, only: %i[show edit update destroy]
@@ -26,6 +27,7 @@ class PostsController < ApplicationController
   end
 
   def create
+
     author = Author.find(params[:author_id])
     @post = author.posts.build(post_params)
     if @post.save

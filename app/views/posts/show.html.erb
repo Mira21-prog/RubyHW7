@@ -7,10 +7,19 @@
 	  <div class = 'poster'>
 	    Posted by <%=get_author(@post)%>
 	  </div>
+    <br>
 	  <p class='post-content'>
       <%= @post.content %>
     </p>
     <%= image_tag @post.image, class: 'img-responsive' %>
+
+    <div class = 'poster'>
+      Last updated <%= distance_of_time_in_words(@post.updated_at.to_i, Time.now)%>
+    </div>
+   <br>
+    <div><span class="glyphicon glyphicon-eye-open"></span> <%= @post.impressionist_count%></div>
+   <br>
+  
 
     <p class='post-button'>
       <%= link_to '| Edit ', edit_post_path(@post)%>

@@ -1,58 +1,66 @@
-  <% if @post.comments.exists?%>
+<% if @post.comments.any? %>
   <div class = "row">
 
-   <div class = "col-sm-7">
-    <h3>Your comments:</h3>
-   </div>
-
-   <div class = "col-sm-1">
-     <h5>Selector</h5>
-   </div>
-
-   <div class = "col-sm-3 ">
-    <div class = "form-inline">
-     <%= form_tag(post_path(@post), method: :get) do |form| %>
-      <%= select_tag :status, options_for_select(["published", "unpublished"],'published'), class: 'form-control selector'%>
-      <%= submit_tag 'OK', class: 'btn btn-primary' %>
-     <% end %>
+    <div class = "col-sm-7">
+      <h3>Your comments:</h3>
     </div>
-   </div>
 
+    <div class = "col-sm-1">
+      <h5>Selector</h5>
+    </div>
 
+    <div class = "col-sm-3 ">
+      <div class = "form-inline">
+        <%= form_tag(post_path(@post), method: :get) do |form| %>
+          <%= select_tag :status, options_for_select(["published", "unpublished"],'published'), class: 'form-control selector'%>
+          <%= submit_tag 'OK', class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    </div>
   </div>
 
     <% @comments.each do |comment| %>
       <% next unless comment.persisted? %>
-       <div class="card">
+      <div class="card">
         <div class="card-body">
-        <div class = "row">
+          <div class = "row">
+
           <div class = "col-sm-1">
             <%= image_tag 'user.png', class: 'image-user' %>
           </div>
+
           <div class = "col-sm-9">
             <div class = "font-weight-bold">
               <%= comment.commenter %> <br>
               Status: <%= comment.status %><br>
+
               <% if comment.status.include?("unpublished") %>
-              <%= link_to "Published", post_comment_path(post_id: comment.post_id, id: comment.id),
-                          method: :patch,
-                          data: { confirm: 'Are you sure?' } %>
-              <% else %>
+                <%= form_tag(post_comment_path(post_id: comment.post_id, id: comment.id), 
+                                      method: :patch) do |form| %>
+                  <%= submit_tag 'Published', class: 'btn btn-primary', name: "published" %>
+                <%end%>
               <% end %>
             </div>
+
             <br>
+
             <div>
               <%= comment.body%>
+              <div class = 'poster'>
+                Last updated <%= distance_of_time_in_words(comment.updated_at.to_i, Time.now)%>
+              </div>
             </div>
           </div>
-              <%= link_to "Delete", post_comment_path(post_id: comment.post_id, id: comment.id),
+
+              <%= link_to 'Delete ', post_comment_path(post_id: comment.post_id, id: comment.id),
                           method: :delete,
-                          data: { confirm: 'Are you sure?' } %>
+                          data: { confirm: 'Are you sure?' } %> 
+
+              <%= link_to '| Edit ', edit_post_comment_path(post_id: comment.post_id, id: comment.id), 
+                                  method: :get %>
         </div>
       </div>
     </div>
     <% end %>
-  <%else%>
-  <%end%>
-  </div>
-</div>
+<%else%>
+<%end%>
