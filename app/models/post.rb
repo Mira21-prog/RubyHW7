@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
-	is_impressionable
+  is_impressionable
 
-  belongs_to :author 
+  belongs_to :author
   has_many :comments, dependent: :destroy
 
   validates :image, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]) }

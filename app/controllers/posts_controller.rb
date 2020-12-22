@@ -3,24 +3,22 @@ class PostsController < ApplicationController
   before_action :find_authors, only: %i[show edit new create update]
   before_action :find_id_post, only: %i[show edit update destroy]
 
-
   def index
     @posts = Post.all
   end
 
   def show
     @comment = @post.comments.build
-    if params[:status].nil?
-      @comments = @post.comments.published
-    elsif params[:status] == 'published'
-      @comments = @post.comments.published
-    else
-      @comments = @post.comments.unpublished
-    end
+    @comments = if params[:status].nil?
+                  @post.comments.published
+                elsif params[:status] == 'published'
+                  @post.comments.published
+                else
+                  @post.comments.unpublished
+                end
   end
 
-  def edit
-  end
+  def edit; end
 
   def new
     @post = Post.new

@@ -5,7 +5,9 @@ ruby '2.6.0'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap'
+gem 'byebug'
 gem 'faker'
+gem 'impressionist'
 gem 'jbuilder', '~> 2.7'
 gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
@@ -13,8 +15,6 @@ gem 'rake'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
-gem 'byebug'
-gem 'impressionist'
 
 group :production do
   gem 'pg'
