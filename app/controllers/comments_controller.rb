@@ -1,13 +1,18 @@
 class CommentsController < ApplicationController
 	before_action :find_post!, only: %i[edit create destroy update]
 	before_action :find_comment!, only: %i[edit destroy update]
+	before_action :find_authors, only: %[edit create update]
 
 	def edit 
 	end 
 
 	def create 
-		@comment = @post.comments.create(comment_params)
-		redirect_to post_path(@post)
+		@comment = @post.comments.build(comment_params)
+		if @comment.save
+			redirect_to post_path(@post)
+		else
+			render template: 'posts/show'
+		end
 	end 
 
 	def destroy 
@@ -16,11 +21,21 @@ class CommentsController < ApplicationController
 	end 
 
 	def update
-		params[:published].nil? ?  @comment.update(comment_params) : @comment.published!
+		if params[:published].nil? 
+			@comment.update!(comment_params) 
+		else 
+			@comment.published!
+		end
 		redirect_to post_path(@post)
+	  rescue ActiveRecord::RecordInvalid => err
+		render 'edit'
 	end
 
 	private 
+
+	def find_authors
+		@authors = Author.all
+	end
 
 	def find_post! 
 		@post = Post.find(params[:post_id])
@@ -31,6 +46,6 @@ class CommentsController < ApplicationController
 	end
 
 	def comment_params
-		params.require(:comment).permit(:commenter, :body, :status)
+		params.require(:comment).permit(:author_id, :body, :status)
 	end
 end

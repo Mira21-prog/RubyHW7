@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   impressionist actions: [:show]
-  include ActionView::Helpers::DateHelper
-  before_action :find_authors, only: %i[edit new create update]
+  before_action :find_authors, only: %i[show edit new create update]
   before_action :find_id_post, only: %i[show edit update destroy]
 
 
@@ -10,9 +9,10 @@ class PostsController < ApplicationController
   end
 
   def show
-    if params["status"].nil?
+    @comment = @post.comments.build
+    if params[:status].nil?
       @comments = @post.comments.published
-    elsif params["status"] == "published"
+    elsif params[:status] == 'published'
       @comments = @post.comments.published
     else
       @comments = @post.comments.unpublished
@@ -27,7 +27,6 @@ class PostsController < ApplicationController
   end
 
   def create
-
     author = Author.find(params[:author_id])
     @post = author.posts.build(post_params)
     if @post.save

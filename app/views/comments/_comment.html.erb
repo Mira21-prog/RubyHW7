@@ -1,15 +1,15 @@
 <% if @post.comments.any? %>
   <div class = "row">
 
-    <div class = "col-sm-7">
-      <h3>Your comments:</h3>
+    <div class = "col-sm-6">
+      <h3>Сomments:</h3>
     </div>
 
     <div class = "col-sm-1">
       <h5>Selector</h5>
     </div>
 
-    <div class = "col-sm-3 ">
+    <div class = "col-sm-4 ">
       <div class = "form-inline">
         <%= form_tag(post_path(@post), method: :get) do |form| %>
           <%= select_tag :status, options_for_select(["published", "unpublished"],'published'), class: 'form-control selector'%>
@@ -19,7 +19,7 @@
     </div>
   </div>
 
-    <% @comments.each do |comment| %>
+    <% (@comments || @post.comments).each do |comment| %>
       <% next unless comment.persisted? %>
       <div class="card">
         <div class="card-body">
@@ -31,13 +31,13 @@
 
           <div class = "col-sm-9">
             <div class = "font-weight-bold">
-              <%= comment.commenter %> <br>
+              <%= get_author(comment) %><br>
               Status: <%= comment.status %><br>
 
               <% if comment.status.include?("unpublished") %>
                 <%= form_tag(post_comment_path(post_id: comment.post_id, id: comment.id), 
                                       method: :patch) do |form| %>
-                  <%= submit_tag 'Published', class: 'btn btn-primary', name: "published" %>
+                  <%= submit_tag 'Published', class: 'btn btn-success', name: "published" %>
                 <%end%>
               <% end %>
             </div>
@@ -52,12 +52,12 @@
             </div>
           </div>
 
-              <%= link_to 'Delete ', post_comment_path(post_id: comment.post_id, id: comment.id),
+              <%= link_to 'Delete', post_comment_path(post_id: comment.post_id, id: comment.id),
                           method: :delete,
-                          data: { confirm: 'Are you sure?' } %> 
+                          data: { confirm: 'Are you sure?' }, class: "btn btn-danger check-button"%> 
 
-              <%= link_to '| Edit ', edit_post_comment_path(post_id: comment.post_id, id: comment.id), 
-                                  method: :get %>
+              <%= link_to 'Edit', edit_post_comment_path(post_id: comment.post_id, id: comment.id), 
+                                  method: :get, class: "btn btn-warning check-button" %>
         </div>
       </div>
     </div>
