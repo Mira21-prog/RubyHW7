@@ -13,7 +13,7 @@
       <div class = "form-inline">
         <%= form_tag(post_path(@post), method: :get) do |form| %>
           <%= select_tag :status, options_for_select(["published", "unpublished"],'published'), class: 'form-control selector'%>
-          <%= submit_tag 'OK', class: 'btn btn-primary' %>
+          <%= submit_tag 'OK', class: 'btn btn-primary'%>
         <% end %>
       </div>
     </div>
