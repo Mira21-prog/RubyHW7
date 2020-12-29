@@ -13,6 +13,11 @@
   </head>
 
   <body>
+    <% if cookies[:views] >= 5 && !logged_in? %>
+    <%= render 'layouts/modal' %>
+    <% end %>
+
+    <%= render 'layouts/header' %>
     <%= yield %>
   </body>
 </html>

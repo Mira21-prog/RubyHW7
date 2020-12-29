@@ -11,11 +11,17 @@ class AuthorsController < ApplicationController
 	def create 
 		@author = Author.new(author_params)
 		if @author.save
-			redirect_to @posts
+			log_in @author
+			redirect_to posts_path
 		else 
 			render 'new'
 		end
 	end
+	
+	def destroy
+    log_out
+    redirect_to root_url
+  end
 
 	private 
 

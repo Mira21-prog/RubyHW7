@@ -25,8 +25,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    author = Author.find(params[:author_id])
-    @post = author.posts.build(post_params)
+    @post = current_author.posts.build(post_params)
     if @post.save
       redirect_to posts_path
     else
@@ -52,7 +51,7 @@ class PostsController < ApplicationController
   private
 
   def find_authors
-    @authors = Author.all
+    current_author
   end
 
   def find_id_post
@@ -60,8 +59,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    p_params = params.require(:post).permit(:title, :content, :image)
-    p_params[:author_id] = params[:author_id] if action_name == 'update'
-    p_params
+    params.require(:post).permit(:title, :content, :image)
   end
 end

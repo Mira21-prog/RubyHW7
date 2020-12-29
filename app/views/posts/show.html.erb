@@ -26,17 +26,28 @@
    <div class = "row">
     <div class = "col-sm-10">
     <p class='post-button'>
+      <% if logged_in?&& get_owner_post?(@post)%>
       <%= link_to 'Edit ', edit_post_path(@post), class: "btn btn-primary"%>
       <%= link_to "Delete", post_path(@post), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-primary" %>
-      <%= link_to "Back to posts", posts_path, class: "btn btn-primary" %>
+      <% else %>
+
+      <% end %>
+      <%= link_to "Back to posts", posts_path, class: "btn btn-primary", data: { turbolinks: false } %>
     </p>
     </div>
     <div class = "col-sm-2 text-secondary">
       <span class="glyphicon glyphicon-eye-open"></span> <%= @post.impressionist_count%>
     </div>
    </div>
-    <%= render 'comments/form' %>
-
+   <% if logged_in? %>
+      <%= render 'comments/form' %>
+   <%else%>
+    <div class = "alert alert-warning">
+      <p>
+        Info! Only logged in user can send comments!
+      </p>
+    </div>
+   <%end%>
 
    <div class= "container">
     <%= render 'comments/comment' %>

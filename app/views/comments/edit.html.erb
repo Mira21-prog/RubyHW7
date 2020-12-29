@@ -4,11 +4,7 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for([@post, @comment], method: :put) do |form| %>
-      <%= render 'shared/error_messages'%>
-      <div class="form-group">
-          <%= form.label :name %>
-          <%= select_tag 'comment[author_id]', options_for_select(Author.all.collect{ |u| [u.full_name, u.id] }), class: 'form-control'%>
-      </div> 
+      <%= render 'shared/error_messages'%> 
      <div class="form-group">
       <%= form.label :comment %>
       <%= form.text_area(:body,  cols: 10, rows: 10, class: 'form-control')%>

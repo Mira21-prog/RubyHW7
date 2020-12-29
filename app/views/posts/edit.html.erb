@@ -18,11 +18,6 @@
       <%= form.text_field :image, class: 'form-control'%>
      </div>
 
-     <div class="form-group">
-      <%= form.label :select_author%>
-      <%= select_tag 'author_id', options_for_select(@authors.collect{ |u| [u.full_name, u.id] }), class: 'form-control'%>
-     </div>
-
       <%= form.submit "Save changes", class: "btn btn-primary" %>
     <% end %>
     <%= link_to "Back to post", post_path(@post) %>

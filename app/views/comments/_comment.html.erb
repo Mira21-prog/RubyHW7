@@ -18,49 +18,53 @@
       </div>
     </div>
   </div>
+  <% (@comments || @post.comments).each do |comment| %>
+    <% next unless comment.persisted? %>
+    <div class="card">
+      <div class="card-body">
+        <div class = "row">
 
-    <% (@comments || @post.comments).each do |comment| %>
-      <% next unless comment.persisted? %>
-      <div class="card">
-        <div class="card-body">
-          <div class = "row">
-
-          <div class = "col-sm-1">
-            <%= image_tag 'user.png', class: 'image-user' %>
-          </div>
-
-          <div class = "col-sm-9">
-            <div class = "font-weight-bold">
-              <%= get_author(comment) %><br>
-              Status: <%= comment.status %><br>
-
-              <% if comment.status.include?("unpublished") %>
-                <%= form_tag(post_comment_path(post_id: comment.post_id, id: comment.id), 
-                                      method: :patch) do |form| %>
-                  <%= submit_tag 'Published', class: 'btn btn-success', name: "published" %>
-                <%end%>
-              <% end %>
-            </div>
-
-            <br>
-
-            <div>
-              <%= comment.body%>
-              <div class = 'poster'>
-                Last updated <%= distance_of_time_in_words(comment.updated_at.to_i, Time.now)%>
-              </div>
-            </div>
-          </div>
-
-              <%= link_to 'Delete', post_comment_path(post_id: comment.post_id, id: comment.id),
-                          method: :delete,
-                          data: { confirm: 'Are you sure?' }, class: "btn btn-danger check-button"%> 
-
-              <%= link_to 'Edit', edit_post_comment_path(post_id: comment.post_id, id: comment.id), 
-                                  method: :get, class: "btn btn-warning check-button" %>
+        <div class = "col-sm-1">
+          <%= image_tag 'user.png', class: 'image-user' %>
         </div>
+
+        <div class = "col-sm-9">
+          <div class = "font-weight-bold">
+            <%= get_author(comment) %><br>
+            Status: <%= comment.status %><br>
+           <% if logged_in? %>
+            <% if comment.status.include?("unpublished") %>
+              <%= form_tag(post_comment_path(post_id: comment.post_id, id: comment.id), method: :patch) do |form| %>
+                <%= submit_tag 'Published', class: 'btn btn-success', name: "published" %>
+              <% end %>
+            <% end %>
+           <% else%>
+           <% end %>
+          </div>
+          <br>
+          <div>
+            <%= comment.body %>
+            <div class = 'poster'>
+              Last updated <%= distance_of_time_in_words(comment.updated_at.to_i, Time.now)%>
+            </div>
+          </div>
+          <div>
+            <% if comment.created_at != comment.updated_at %>
+            <div><span class="glyphicon glyphicon-pencil"></span>Edited</div>
+            <%end%>
+          </div>
+        </div>
+        <% if logged_in? && comment.created_at >= (Time.now - 1.hour)%>
+            <%= link_to 'Delete', post_comment_path(post_id: comment.post_id, id: comment.id),
+                        method: :delete,
+                        data: { confirm: 'Are you sure?' }, class: "btn btn-danger check-button"%> 
+
+            <%= link_to 'Edit', edit_post_comment_path(post_id: comment.post_id, id: comment.id), 
+                                method: :get, class: "btn btn-warning check-button" %>
+        <% end %>
+
       </div>
     </div>
-    <% end %>
-<%else%>
-<%end%>
+  </div>
+  <% end %>
+<% end %>
