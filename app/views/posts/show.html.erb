@@ -1,3 +1,6 @@
+
+
+
 <div class = "container post-show">
   <div class = "col-md-8 col-md-offset-2">
 	  <h2 class = 'post-title'>
@@ -7,6 +10,7 @@
       <hr>
 	  </h2>
 	  <div class = 'poster'>
+      <%= image_tag(@post.author.avatar, size: "100x100", class: "rounded-circle") %>
 	    Posted by <span class = "text-primary"><%=get_author(@post)%></span>
 	  </div>
     <hr>
@@ -19,7 +23,7 @@
       <%= @post.content %>
     </p>
     <hr>
-    <%= image_tag @post.image, class: 'img-responsive' %>
+    <%= image_tag(@post.image, size: "700x500")%>
     <hr>
 
   

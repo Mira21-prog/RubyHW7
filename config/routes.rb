@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
   resources :authors
   get   'signup'   => 'authors#new'
+  get '/search' => 'posts#index', :as => 'search_posts'
   resources :posts do
     resources :comments
   end

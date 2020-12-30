@@ -8,16 +8,23 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   </head>
 
   <body>
-    <% if cookies[:views] >= 5 && !logged_in? %>
-    <%= render 'layouts/modal' %>
+    <% if show_modal? %>
+      <%= render 'layouts/modal' %>
     <% end %>
 
     <%= render 'layouts/header' %>
     <%= yield %>
+    <div class="spinner-wrapper">
+      <div class="spinner">
+        <i class="fa fa-hourglass-half">
+        </i>
+      </div>
+    </div>
   </body>
 </html>

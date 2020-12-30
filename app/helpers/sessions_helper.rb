@@ -21,4 +21,8 @@ module SessionsHelper
   	post.author_id == current_author.id
   end
 
+  def current_author?(author)
+    author == current_author
+  end
+
 end

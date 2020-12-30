@@ -32,7 +32,7 @@ footer{
 }
 
 .page-container {
-    margin-top: 280px; 
+    margin-top: 5px; 
 }
 .container {
     margin-bottom: 100px;
@@ -105,22 +105,45 @@ footer{
   }
 }
 
-.topnav {
-  overflow: hidden;
-  background-color: #333;
+.spinner-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1111;
+  background-color:rgba(0,0,0,0.7);
+  display: none;
+  .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 46px;
+    color: #fff;
+    margin:-30px 0 0 -30px;
+    -webkit-animation:spin 3s linear infinite;
+    -moz-animation:spin 3s linear infinite;
+    animation:spin 3s linear infinite;
+  }
+}
+input#userAvatar{
+  margin-left: 120px;
+  margin-top: 10px;
+}
+.change-body-card{
+  margin:50px;
+}
+.change-card{
+  margin-bottom: 100px;
+}
+.navbar-brand {
+  margin-right:900px;
+}
+.navbar-dark .navbar-nav .nav-link  {
+  color: white;
 }
 
-/* Navbar links */
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
 
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
+.body-change-card{
+  padding-top: 0px;
 }

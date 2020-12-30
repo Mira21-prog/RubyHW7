@@ -17,6 +17,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
 gem 'bcrypt'
 gem 'byebug'
+gem 'cloudinary'
 
 group :production do
   gem 'pg'
@@ -24,6 +25,7 @@ group :production do
 end
 
 group :development do
+  gem 'dotenv-rails'
   gem 'listen', '~> 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

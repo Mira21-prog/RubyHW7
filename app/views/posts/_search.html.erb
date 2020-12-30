@@ -1,0 +1,14 @@
+<div class ="container">
+	<div class = "row">
+		<div class = "col-sm-12">
+<%= form_tag(search_posts_path, :method => "get") do %>  
+  <div class="input-group">  
+    <%= search_field_tag :search, params[:search], placeholder: "Search posts...", class: "form-control input-lg rounded-left " %>  
+    <div class="input-group-btn">  
+      <%= button_tag "SEARCH", :class => 'btn btn-info input-lg',:name => nil%>  
+    </div>  
+  </div>  
+<% end %>
+ </div>
+ </div>
+</div>

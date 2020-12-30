@@ -22,7 +22,7 @@
 
       <div class = "form-group">
         <%= f.label :gender %>
-        <%= select_tag('author[gender]', options_for_select([['Male', 1], ['Female', 2]])) %>
+        <%= select_tag('author[gender]', options_for_select(['Male', 'Female'])) %>
       </div>
 
       <div class = "form-group">
@@ -39,6 +39,8 @@
        <%= f.label :password_confirmation, "Confirmation" %>
        <%= f.password_field :password_confirmation, class: 'form-control' %>
       </div>
+      <%= f.label :avatar %>
+      <%= f.file_field :avatar, direct_upload: true, id: 'userAvatar', class: "text-center" %>
 
       <%= f.submit "Create my account", class: "btn btn-primary" %>
     <% end %>
