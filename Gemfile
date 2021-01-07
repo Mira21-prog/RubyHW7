@@ -34,7 +34,7 @@ group :development do
   gem 'pry'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'sqlite3'
+  gem 'pg'
   gem 'web-console', '>= 3.3.0'
 end
 
