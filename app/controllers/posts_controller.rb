@@ -2,13 +2,12 @@ class PostsController < ApplicationController
   impressionist actions: [:show]
   before_action :find_authors, only: %i[show edit new create update]
   before_action :find_id_post, only: %i[show edit update destroy]
-  
 
   def index
     @posts = Post.paginate(page: params[:page], per_page: 8)
-    @parameter = params[:search] 
+    @parameter = params[:search]
     if @parameter.present?
-      @posts = @posts.where("title LIKE :search OR content LIKE :search", search: "%#{@parameter}%")
+      @posts = @posts.where('title LIKE :search OR content LIKE :search', search: "%#{@parameter}%")
     end
   end
 
@@ -30,7 +29,6 @@ class PostsController < ApplicationController
   end
 
   def create
-
     @post = current_author.posts.build(post_params)
     if @post.save
       redirect_to posts_path
@@ -54,9 +52,7 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
-
   private
-
 
   def find_authors
     current_author

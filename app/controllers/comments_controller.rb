@@ -32,7 +32,6 @@ class CommentsController < ApplicationController
 
   private
 
-
   def find_authors
     @authors = Author.all
   end

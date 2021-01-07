@@ -11,6 +11,6 @@ class Post < ApplicationRecord
   validates :title, :content, :image, presence: true
   validates :title, :content, length: { maximum: 200 }
   def self.search(search)
-    where("title LIKE ?", "%#{search}%")
+    where('title LIKE ?', "%#{search}%")
   end
 end
