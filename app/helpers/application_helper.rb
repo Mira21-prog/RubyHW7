@@ -9,4 +9,5 @@ module ApplicationHelper
   	  (controller.class.name != 'SessionController') &&
   	  (controller.class.name != 'AuthorsController')
   end
+ 
 end

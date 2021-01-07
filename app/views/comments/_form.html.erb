@@ -4,21 +4,125 @@
     <div class = "card-header">
     <h3>Leave a Comment:</h3>
     </div>
-    <div class="card-body color-comment">
+    <div class="card-body color-comment" data-postid="<%= @post.id %>">
     <%= form_for [@post, @comment], local: true do |form| %>
       <%= render 'shared/error_messages'%>
       <div class="form-group">
         <%= form.label :comment %><br>
         <%= form.text_area(:body,  cols: 3, rows: 3, class: 'form-control') %>
+        <div class = "error">
+        </div>
       </div>
-      <div class="form-group">
-        <%= form.label :status %><br>
-        <%= select_tag 'comment[status]', options_for_select(Comment.statuses.keys), class: 'form-control'%>
-      </div>
+      <input type='hidden' name='comment[status]' value='published'>
       <p>
-        <%= form.submit 'Submit', class: 'btn btn-primary' %>
+        <%= button_tag 'Submit', role: 'button', class: 'btn btn-primary submit-comment' %>
       </p>
     <%end%>
   </div>
  </div>
 </div>
+
+
+<script>
+  $(document).on('click', '.submit-comment', function(e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var post_id = $(this).parents('.card-body').data('postid');
+      var form = $(this).parents('form');
+      var params = form.serialize();
+    $.ajax({
+      url: form.attr('action') + '.js',
+      method: 'POST',
+      data: params,
+      success: function (data) {
+        $(document).find('.comments-list').html(data);
+        $("textarea").css('border-color', '#ccc').val('');
+        $(".error").text("")
+        $(document).find('#successComment').modal('show');
+        setTimeout(function () {
+          $(document).find('#successComment').modal('hide');
+        }, 1000)
+
+      },
+      error: function(data) {
+        $(form).find("textarea").css('border-color', 'red');
+        $(form).find(".error").text("Comment can not be blank!").css("color", "red");
+      } 
+    })
+  });
+
+  $(document).on('click', '.delete-comment-button', function (e) {
+    e.preventDefault();
+    var self = this;
+    $.ajax({
+      url: $(self).data('url'),
+      method: 'DELETE',
+      success: function(data) {
+        $(document).find('.comments-list').html(data);
+      }
+    })
+  })
+
+  
+  $(document).on("click", ".like", function() {
+    var comment_id = $(this).parents('.card').data()['commentid'];
+    var author_id = $(this).parents('.card').data()['authorid'];
+    var vote_value = $(this).data('value');
+    var self = this;
+    if ($(this).hasClass('disabled')) {
+      return;
+    }
+    $.ajax({
+      url: '/comments/' + comment_id + '/votes.js',
+      method: 'POST',
+      data: {
+        vote: {comment_id: comment_id,
+        author_id: author_id,
+        vote_value: vote_value}
+      },
+      success: function (data) {
+        $(self).find('.like-vote').text(data.upvotes_count)
+        var card = $(self).parents('.card');
+        card.find('.like').addClass('disabled');
+        card.find('.dislike').addClass('disabled');
+      }
+    })
+  });
+
+  $(document).on("click", ".dislike", function() {
+    var comment_id = $(this).parents('.card').data()['commentid'];
+    var author_id = $(this).parents('.card').data()['authorid'];
+    var vote_value = $(this).data('value');
+    var self = this;
+    if ($(this).hasClass('disabled')) {
+      return;
+    }
+    $.ajax({
+      url: '/comments/' + comment_id + '/votes.js',
+      method: 'POST',
+      data: {
+        vote: {comment_id: comment_id,
+        author_id: author_id,
+        vote_value: vote_value}
+      },
+      success: function (data) {
+        $(self).find('.dislike-vote').text(data.downvotes_count)
+        var card = $(self).parents('.card');
+        card.find('.like').addClass('disabled');
+        card.find('.dislike').addClass('disabled');
+      }
+    })
+  });
+
+  $(document).on('click', '.message', function () {
+    var forms = $(document).find('.comments-list').find('.card').find('form')
+    if (forms.length) {
+      forms.remove();
+      return;
+    }
+    var commentCard = $(this).parents('.card');
+    var formClone = $(document).find('#new_comment').clone().addClass('newnested-form');
+    formClone.prepend('<input type="hidden" name="comment[parent_id]" value="' + $(this).data('newcommentid') + '">')
+    commentCard.append(formClone);
+  })
+</script> 

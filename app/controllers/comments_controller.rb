@@ -8,15 +8,15 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.build(comment_params)
     if @comment.save
-      redirect_to post_path(@post)
+      render partial: 'comments/comments', status: 200
     else
-      render template: 'posts/show'
+      render json: { errors: @comment.errors.full_messages }, status: 422
     end
   end
 
   def destroy
     @comment.destroy
-    redirect_to post_path(@post)
+    render partial: 'comments/comments', status: 200
   end
 
   def update
@@ -32,6 +32,7 @@ class CommentsController < ApplicationController
 
   private
 
+
   def find_authors
     @authors = Author.all
   end
@@ -45,7 +46,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params_s = params.require(:comment).permit(:body, :status)
+    params_s = params.require(:comment).permit(:body, :status, :parent_id)
     params_s[:author_id] = current_author.id
     params_s
   end

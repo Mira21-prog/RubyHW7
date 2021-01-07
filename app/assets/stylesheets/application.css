@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+.form .newnested-form{
+  border-top: rgb(0, 191, 255);
+  border-radius: 70%;
+}

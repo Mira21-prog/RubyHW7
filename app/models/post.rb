@@ -6,6 +6,9 @@ class Post < ApplicationRecord
   belongs_to :author
   has_many :comments, dependent: :destroy
 
+  has_many :author_comment_votes, through: :comments
+  validates :image, presence: true
+
   validates :title, presence: true
   validates :content, presence: true
   validates :title, length: { maximum: 200 }

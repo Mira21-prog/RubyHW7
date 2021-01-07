@@ -1,7 +1,7 @@
 
 
 
-<div class = "container post-show">
+<div class = "container post-show data-postid=<%= @post.id %>" >
   <div class = "col-md-8 col-md-offset-2">
 	  <h2 class = 'post-title'>
       <br>
@@ -10,13 +10,9 @@
       <hr>
 	  </h2>
 	  <div class = 'poster'>
-      <%= image_tag(@post.author.avatar, size: "100x100", class: "rounded-circle") %>
-	    Posted by <span class = "text-primary"><%=get_author(@post)%></span>
+      <%= image_tag(@post.author.avatar, size: "50x50", class: "rounded-circle") %>
+	    Posted by <span class = "text-primary"><%=get_author(@post)%></span> | Last updated <%= distance_of_time_in_words(@post.updated_at.to_i, Time.now)%>
 	  </div>
-    <hr>
-    <div class = 'poster'>
-      Last updated <%= distance_of_time_in_words(@post.updated_at.to_i, Time.now)%>
-    </div>
     <hr>
     <br>
 	  <p class='post-content'>
@@ -28,7 +24,7 @@
 
   
    <div class = "row">
-    <div class = "col-sm-10">
+    <div class = "col-sm-8">
     <p class='post-button'>
       <% if logged_in?&& get_owner_post?(@post)%>
       <%= link_to 'Edit ', edit_post_path(@post), class: "btn btn-primary"%>
@@ -39,8 +35,15 @@
       <%= link_to "Back to posts", posts_path, class: "btn btn-primary", data: { turbolinks: false } %>
     </p>
     </div>
-    <div class = "col-sm-2 text-secondary">
-      <span class="glyphicon glyphicon-eye-open"></span> <%= @post.impressionist_count%>
+    <div class = "col-sm-4 text-secondary">
+      <div class = "card">
+        <div class = "card-body text-center">
+            <i class="glyphicon glyphicon-comment"></i>  <%= @post.comments.published.count%> 
+            <i class="glyphicon glyphicon-eye-open"></i>  <%= @post.impressionist_count%> 
+            <i class="fa fa-thumbs-o-up"></i>  <%= @post.author_comment_votes.upvote.count%> 
+            <i class="fa fa-thumbs-o-down"></i>  <%= @post.author_comment_votes.downvote.count%> 
+        </div>
+      </div>
     </div>
    </div>
    <% if logged_in? %>
@@ -52,9 +55,15 @@
       </p>
     </div>
    <%end%>
-
    <div class= "container">
-    <%= render 'comments/comment' %>
+    <div class='comments-list'>
+      <%= render 'comments/comments' %>
+    </div>
    </div>
+  </div>
+</div>
+<div class='modal' id='successComment'>
+  <div class="alert alert-success">
+     Your comment has been saved
   </div>
 </div>

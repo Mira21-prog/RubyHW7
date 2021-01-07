@@ -1,0 +1,54 @@
+   <div class = "row">
+    <div class = "col-md-12">
+     <div class="card my-1"> 
+    <div class = "card-header">
+    <h3>Leave a Comment:</h3>
+    </div>
+    <div class="card-body color-comment" data-postid="<%= @post.id %>">
+    <%= form_for [@post, @comment], local: true do |form| %>
+      <%= render 'shared/error_messages'%>
+      <div class="form-group">
+        <%= form.label :comment %><br>
+        <%= form.text_area(:body,  cols: 3, rows: 3, class: 'form-control') %>
+        <div class = "error">
+        </div>
+      </div>
+      <div class="form-group">
+        <%= form.label :status %><br>
+        <%= select_tag 'comment[status]', options_for_select(Comment.statuses.keys), class: 'form-control'%>
+      </div>
+
+      <%= form.hidden_field :parent_id, value: parent_id %>
+
+      <p>
+        <%= button_tag 'Submit', role: 'button', class: 'btn btn-primary submit-comment' %>
+      </p>
+    <%end%>
+  </div>
+ </div>
+</div>
+
+<script>
+  $(document).on('click', '.submit-comment', function(e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var post_id = $(this).parents('.card-body').data('postid');
+      var form = $(this).parents('form');
+      var params = form.serialize();
+    $.ajax({
+      url: form.attr('action') + '.js',
+      method: 'POST',
+      data: params,
+      success: function (data) {
+        $(document).find('.comments-list').append(data);
+        $("textarea").css('border-color', '#ccc');
+        $(".error").text("")
+
+      },
+      error: function(data) {
+        $("textarea").css('border-color', 'red');
+        $(".error").text("Comment can not be blank!").css("color", "red");
+      } 
+    })
+  });
+</script> 

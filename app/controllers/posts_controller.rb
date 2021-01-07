@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   
 
   def index
-    @posts = Post.all
+    @posts = Post.paginate(page: params[:page], per_page: 8)
     @parameter = params[:search]&.downcase  
     if @parameter.present?
       @posts = @posts.where("title LIKE :search OR content LIKE :search", search: "%#{@parameter}%")
@@ -15,11 +15,11 @@ class PostsController < ApplicationController
   def show
     @comment = @post.comments.build
     @comments = if params[:status].nil?
-                  @post.comments.published
+                  @post.comments.published.roots
                 elsif params[:status] == 'published'
-                  @post.comments.published
+                  @post.comments.published.roots
                 else
-                  @post.comments.unpublished
+                  @post.comments.unpublished.roots
                 end
   end
 
@@ -30,7 +30,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    
+
     @post = current_author.posts.build(post_params)
     if @post.save
       redirect_to posts_path

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_30_155812) do
+ActiveRecord::Schema.define(version: 2021_01_06_115903) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 2020_12_30_155812) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "author_comment_votes", force: :cascade do |t|
+    t.integer "author_id"
+    t.integer "comment_id"
+    t.integer "vote_value"
+    t.index ["author_id"], name: "index_author_comment_votes_on_author_id"
+    t.index ["comment_id"], name: "index_author_comment_votes_on_comment_id"
+  end
+
   create_table "authors", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -52,6 +60,8 @@ ActiveRecord::Schema.define(version: 2020_12_30_155812) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status"
     t.integer "author_id", null: false
+    t.string "ancestry"
+    t.index ["ancestry"], name: "index_comments_on_ancestry"
     t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
   end

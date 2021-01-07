@@ -147,3 +147,59 @@ input#userAvatar{
 .body-change-card{
   padding-top: 0px;
 }
+button.like{
+  width: 40px;
+  height: 40px;
+  margin: 10 auto;
+  line-heigth: 50px;
+  border-radius: 50%;
+  color: rgba(0,150,136 ,1);
+  background-color: white;
+  border-color: rgba(0,150,136 ,1);
+  border-width: 1px;
+  font-size: 15px;
+  &.disabled {
+    cursor: default;
+  }
+}
+
+button.dislike{
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  line-heigth: 50px;
+  border-radius: 50%;
+  color: rgba(255,82,82 ,1);
+  background-color: white;
+  border-color: rgba(255,82,82 ,1);
+  border-width: 1px;
+  font-size: 15px;
+  &.disabled {
+    cursor: default;
+  }
+}
+button.message{
+  width: 40px;
+  height: 40px;
+  margin: 10 auto;
+  line-heigth: 50px;
+  border-radius: 50%;
+  color: blue;
+  background-color: white;
+  border-color:   rgb(0, 191, 255);
+  border-width: 1px;
+  font-size: 15px;
+  &.disabled {
+    cursor: default;
+  }
+}
+.summery-tegs{
+  margin-left: 10px;
+  
+}
+.post-button{
+  margin-top:15px;
+}
+.newnested-form{
+  border: 0px solid rgba(0, 0, 0, 0.125) unset;
+}

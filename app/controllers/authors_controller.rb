@@ -48,14 +48,14 @@ class AuthorsController < ApplicationController
 		@author.avatar.attach(params[:author][:avatar])
 	end
 
-	  def signed_in_author
-      redirect_to signin_url unless logged_in?
-    end
+	def signed_in_author
+    redirect_to signin_url unless logged_in?
+  end
 
-    def correct_author
-      @author = Author.find(params[:id])
-      redirect_to(root_url) unless current_author?(@author)
-    end
+  def correct_author
+    @author = Author.find(params[:id])
+    redirect_to(root_url) unless current_author?(@author)
+  end
 
 	def author_params
 		params.require(:author).permit(:first_name, :last_name, :email, :gender, :birthday, :password, :password_confirmation, :avatar)

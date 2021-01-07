@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments
   end
+  post 'comments/:comment_id/votes', controller: :author_comment_votes, action: :create
 end

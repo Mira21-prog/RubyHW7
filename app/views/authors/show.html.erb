@@ -4,11 +4,10 @@
   	  <div class = "card change-card">
   	  	<div class="card-body change-body-card">
   	  	  <div class = "col-sm-6 text-center">
-
   	  	  	<%= image_tag(@author.avatar, size: "300x300", class: "rounded-circle") %>
-           <%= form_with model: @author, local: true do |form| %>
-            <%= form.file_field :avatar, direct_upload: true, id: 'userAvatar' %>
-           <% end %>
+              <%= form_with model: @author, local: true do |form| %>
+              <%= form.file_field :avatar, direct_upload: true, id: 'userAvatar' %>
+            <% end %>
           </div>
 
           <div class = "col-sm-6">
@@ -24,7 +23,10 @@
              		<hr>
              		<h4><i>Gender: </i><%= @author.gender %></h4><br>
              		<hr>
-             		<h4><i>Birthday: </i><%= @author.birthday.strftime('%d %b %Y') %></h4><br>
+             		<%if !@author.birthday.nil? %>
+             		  <h4><i>Birthday: </i><%= @author.birthday.strftime('%d %b %Y') %></h4><br>
+             		<% else %>
+             		<% end %>
              </div>
             </div>
           </div>

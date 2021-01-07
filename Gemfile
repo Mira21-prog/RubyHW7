@@ -18,6 +18,9 @@ gem 'webpacker', '~> 4.0'
 gem 'bcrypt'
 gem 'byebug'
 gem 'cloudinary'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap4'
+gem 'ancestry'
 
 group :production do
   gem 'pg'
@@ -31,6 +34,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'sqlite3'
   gem 'web-console', '>= 3.3.0'
+  gem 'pry'
 end
 
 group :test do
