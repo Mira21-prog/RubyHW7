@@ -46,19 +46,20 @@
           </button>
           <%else%>
           <% end %>
-        </div>
-        <div>
+       
           <% if comment.created_at != comment.updated_at %>
-          <div><span class="glyphicon glyphicon-pencil"></span>Edited</div>
+          <button class = "btn btn-info"><span class="glyphicon glyphicon-pencil"></span>Edited</button>
           <%end%>
         </div>
       </div>
+      <div class = "col-sm-2">
       <% if logged_in? && comment.created_at >= (Time.now - 1.hour)%>
-          <%= link_to 'Delete', '#', data: { url: post_comment_path(post_id: comment.post_id, id: comment.id) }, class: "btn btn-danger check-button delete-comment-button"%> 
-
+          <%= link_to 'Delete', '#', data: { url: post_comment_path(post_id: comment.post_id, id: comment.id) }, class: "btn btn-outline-danger check-button delete-comment-button"%> 
+        
           <%= link_to 'Edit', edit_post_comment_path(post_id: comment.post_id, id: comment.id), 
-                              method: :get, class: "btn btn-warning check-button" %>
+                              method: :get, class: "btn btn-outline-warning check-button" %>
       <% end %>
+    </div>
     </div>
   </div>
 </div>
