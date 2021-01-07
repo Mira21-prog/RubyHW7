@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
   	 	log_in author
   	 	redirect_to author 
   	 else 
+      render 'new'
   	 end
   end 
 

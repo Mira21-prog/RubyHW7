@@ -2,6 +2,14 @@
   <nav class="navbar fixed-top fixed-bottom navbar-dark bg-primary navbar-expand-sm">
     <ul class="navbar-nav">
       <a class="navbar-brand" href="/posts" data-turbolinks="false">Blog</a>
+      <%= form_tag(search_posts_path, :method => "get") do %>  
+  <div class="input-group">  
+    <%= search_field_tag :search, params[:search], placeholder: "Search posts...", class: "form-control input-lg  " %>  
+    <div class="input-group-btn">  
+      <%= button_tag "SEARCH", :class => 'btn btn-info input-lg',:name => nil%>  
+    </div>  
+  </div>  
+<% end %>
     <li class="nav-item">
       <a class="nav-link" href="/posts" data-turbolinks="false">Posts</a>
     </li>
@@ -15,10 +23,10 @@
           <%= link_to "Create new post", new_post_path, class: "nav-link" %>
       </li>
       <li class="nav-item">
-          <%= link_to "Log out", logout_path, method: "delete", class: "nav-link" %>
+          <%= link_to "Setting", edit_author_path(current_author), method: "get", class: "nav-link" %>
       </li>
       <li class="nav-item">
-          <%= link_to "Setting", edit_author_path(current_author), method: "get", class: "nav-link" %>
+          <%= link_to "Log out", logout_path, method: "delete", class: "nav-link" %>
       </li>
   
     <% else %>

@@ -6,7 +6,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.paginate(page: params[:page], per_page: 8)
-    @parameter = params[:search]&.downcase  
+    @parameter = params[:search] 
     if @parameter.present?
       @posts = @posts.where("title LIKE :search OR content LIKE :search", search: "%#{@parameter}%")
     end

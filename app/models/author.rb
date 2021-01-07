@@ -7,6 +7,8 @@ class Author < ApplicationRecord
   validates :gender, presence: true
   validates :birthday, presence: true
   validates :avatar, presence: true
+  validates :first_name, presence: true
+
   validates :password, presence: true, length: { minimum: 8 }, allow_nil: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { minimum: 8},
