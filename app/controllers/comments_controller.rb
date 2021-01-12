@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :find_post!, only: %i[edit create destroy update]
-  before_action :find_comment!, only: %i[edit destroy update]
+  before_action :find_post, only: %i[edit create destroy update]
+  before_action :find_comment, only: %i[edit destroy update]
   before_action :find_authors, only: %(edit create update)
 
   def edit; end
@@ -8,9 +8,9 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.build(comment_params)
     if @comment.save
-      render partial: 'comments/comments', status: 200
+      render partial: 'comments/comments'
     else
-      render json: { errors: @comment.errors.full_messages }, status: 422
+      render json: { errors: @comment.errors.full_messages }
     end
   end
 
@@ -26,15 +26,9 @@ class CommentsController < ApplicationController
       @comment.published!
     end
     redirect_to post_path(@post)
-  rescue ActiveRecord::RecordInvalid => e
-    render 'edit'
   end
 
   private
-
-  def find_authors
-    @authors = Author.all
-  end
 
   def find_post!
     @post = Post.find(params[:post_id])
@@ -45,8 +39,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params_s = params.require(:comment).permit(:body, :status, :parent_id)
-    params_s[:author_id] = current_author.id
-    params_s
+    params.require(:comment).permit(:body, :status, :parent_id).merge(author_id: current_author.id)
   end
 end
